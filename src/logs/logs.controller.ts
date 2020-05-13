@@ -17,7 +17,7 @@ import {
     ValidationError,
     ValidationPipe
 } from '@nestjs/common';
-import {GRpcExceptionFilter} from '../filters/grpc-exception.filter';
+import {GRpcExceptionFilter} from '../filter/grpc-exception.filter';
 import LogsRpcService from './interface/logs-rpc-service.interface';
 import {LogsService} from './logs.service';
 import GetLogByServiceTypeDto from './dto/get-log-by-service-type.dto';

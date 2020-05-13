@@ -1,11 +1,11 @@
 import {Module} from '@nestjs/common';
 import {ClientsModule} from '@nestjs/microservices';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import {grpcClientOptions} from '../config/options/grpc-client.options';
+import {grpcClientOptions} from '../config/option/grpc-client.options';
 import {LogsService} from './logs.service';
 import {LogsController} from './logs.controller';
 import {LogRepository} from './log.repository';
-import {rmqClientOptions} from '../config/options/rmq-client.options';
+import {rmqClientOptions} from '../config/option/rmq-client.options';
 
 @Module({
     imports: [

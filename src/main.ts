@@ -2,8 +2,8 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import config from 'config';
 import {Logger} from '@nestjs/common';
-import {grpcClientOptions} from './config/options/grpc-client.options';
-import {rmqClientOptions} from './config/options/rmq-client.options';
+import {grpcClientOptions} from './config/option/grpc-client.options';
+import {rmqClientOptions} from './config/option/rmq-client.options';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 
 async function bootstrap() {
