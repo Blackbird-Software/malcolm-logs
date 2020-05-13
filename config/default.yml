@@ -1,0 +1,14 @@
+server:
+  port: 3000
+
+db:
+  type: 'mongodb'
+  port: 27017
+  database: 'logs'
+
+queue:
+  user: user
+  password: pass1
+
+jwt:
+  expiresIn: 3600

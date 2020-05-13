@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package logs;
+
+enum ServiceType {
+  USERS = 0;
+  BOOKS = 1;
+  MOVIES = 2;
+}
+
+enum ActionType {
+  CREATE = 0;
+  UPDATE = 1;
+  DELETE = 2;
+}
+
+message LogDto {
+  ServiceType service = 1;
+  ActionType action = 2;
+  string objectId = 3;
+  string object = 4;
+}
+
+message Log {
+  string id = 1;
+  string service = 2;
+  string action = 3;
+  string objectId = 4;
+  string createdAt = 5;
+}
+
+service LogsRpcService {
+  rpc FindById (GetLogRequest) returns (Log);
+  rpc ListAllByServiceType (GetLogsByServiceTypeRequest) returns (stream Logs);
+  rpc ListAllByActionType (GetLogsByActionTypeRequest) returns (stream Logs);
+  rpc ListAll (Empty) returns (stream Logs);
+  rpc Create (LogDto) returns (Log);
+}
+
+message Empty {}
+
+message GetLogRequest {
+  string id = 1;
+}
+
+message GetLogsByServiceTypeRequest {
+  ServiceType service = 1;
+}
+
+message GetLogsByActionTypeRequest {
+  ActionType action = 1;
+}
+
+message Logs {
+  repeated Log items = 1;
+}

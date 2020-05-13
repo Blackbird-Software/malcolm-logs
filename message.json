@@ -1,0 +1,11 @@
+{
+  "pattern": {
+    "type": "APP_LOGS"
+  },
+  "data": {
+    "service": 1,
+    "action": 0,
+    "objectId": "7a0e61bc-29f8-42f1-a282-a4099f71535f",
+    "object": "{\"name\":\"John\",\"age\":31,\"city\":\"New York\"}"
+  }
+}
