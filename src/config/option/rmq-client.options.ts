@@ -7,7 +7,7 @@ const password = process.env.RABBITMQ_PASSWORD || queueConfig.password;
 const hostname = process.env.RABBITMQ_HOSTNAME || queueConfig.hostname;
 const port = parseInt(process.env.RABBITMQ_PORT, 10) || queueConfig.port;
 
-export const rmqClientOptions: RmqOptions = {
+export const rmqClientOptions: any = {
     transport: Transport.RMQ,
     options: {
         urls: [

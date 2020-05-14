@@ -4,10 +4,11 @@ import {
     GRPCHealthIndicator,
     HealthCheck,
     HealthCheckService,
-    MemoryHealthIndicator,
+    MemoryHealthIndicator, MicroserviceHealthIndicator,
     TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import {join} from 'path';
+import {rmqClientOptions} from "../../config/option/rmq-client.options";
 
 @Controller('health_check')
 export class HealthController {
@@ -18,6 +19,7 @@ export class HealthController {
         private diskHealthIndicator: DiskHealthIndicator,
         private memoryHealthIndicator: MemoryHealthIndicator,
         private gRpcHealthIndicator: GRPCHealthIndicator,
+        private rabbitMqHealthIndicator: MicroserviceHealthIndicator
     ) {
     }
 
@@ -26,13 +28,14 @@ export class HealthController {
     async readiness() {
         return this.healthCheckService.check([
             () => this.typeOrmHealthIndicator.pingCheck('database', {timeout: 300}),
-            () => this.diskHealthIndicator.checkStorage('storage', {thresholdPercent: 0.7, path: '/'}),
+            () => this.diskHealthIndicator.checkStorage('storage', {thresholdPercent: 0.9, path: '/'}),
             () => this.memoryHealthIndicator.checkHeap('memory_rss', 250 * 1024 * 1024),
-            () => this.gRpcHealthIndicator.checkService('gRpc_service', 'whatever', {
+            () => this.gRpcHealthIndicator.checkService('grpc_service', 'whatever', {
                 package: 'health',
                 healthServiceName: 'HealthRpcService',
                 protoPath: join(__dirname, '/../health.proto'),
             }),
+            () => this.rabbitMqHealthIndicator.pingCheck('queue_system', rmqClientOptions)
         ]);
     }
 }
