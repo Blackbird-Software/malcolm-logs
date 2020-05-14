@@ -19,6 +19,10 @@ export class Log extends BaseEntity implements LogInterface {
 
     @Index()
     @Column()
+    entity: string;
+
+    @Index()
+    @Column()
     objectId: string;
 
     @CreateDateColumn()

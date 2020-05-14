@@ -29,6 +29,7 @@ import {LogInterface} from './interface/log.interface';
 import {LogDto} from './dto/log.dto';
 import {MessagePatternType} from './enum/message-pattern-type';
 import LogsResponseInterface from './interface/logs-response.interface';
+import GetLogByEntityAndActionTypeDto from "./dto/get-log-by-entity-and-action-type.dto";
 
 @Controller()
 @UseFilters(new GRpcExceptionFilter())
@@ -84,8 +85,18 @@ export class LogsController implements OnModuleInit {
         return {items};
     }
 
+    @GrpcMethod('LogsRpcService')
+    async listAllByEntityAndActionType(dto: GetLogByEntityAndActionTypeDto, metadata: any): Promise<LogsResponseInterface> {
+        const entity = dto.entity;
+        const type = ActionTypeConverter.fromInt(dto.action);
+        const items = await this.logsService.findByEntityAndActionType(entity, type);
+
+        return {items};
+    }
+
     @MessagePattern({type: MessagePatternType.APP_LOGS})
     async fetchMessage(@Payload() dto: LogDto, @Ctx() context: RmqContext): Promise<LogInterface> {
+        console.log('received', dto);
         return await this.logsService.create(dto);
     }
 }

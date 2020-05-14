@@ -38,6 +38,10 @@ export class LogsService {
         return this.logRepository.findByActionType(action);
     }
 
+    async findByEntityAndActionType(entity: string, action: keyof typeof ActionType): Promise<LogsInterface> {
+        return this.logRepository.findByEntityAndActionType(entity, action);
+    }
+
     async findAll(): Promise<LogsInterface> {
         return this.logRepository.find();
     }

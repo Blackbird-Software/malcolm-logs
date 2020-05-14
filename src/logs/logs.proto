@@ -17,22 +17,25 @@ enum ActionType {
 message LogDto {
   ServiceType service = 1;
   ActionType action = 2;
-  string objectId = 3;
-  string object = 4;
+  string entity = 3;
+  string objectId = 4;
+  string object = 5;
 }
 
 message Log {
   string id = 1;
   string service = 2;
-  string action = 3;
-  string objectId = 4;
-  string createdAt = 5;
+  string entity = 3;
+  string action = 4;
+  string objectId = 5;
+  string createdAt = 6;
 }
 
 service LogsRpcService {
   rpc FindById (GetLogRequest) returns (Log);
   rpc ListAllByServiceType (GetLogsByServiceTypeRequest) returns (stream Logs);
   rpc ListAllByActionType (GetLogsByActionTypeRequest) returns (stream Logs);
+  rpc ListAllByEntityAndActionType (GetLogsByEntityAndActionTypeRequest) returns (stream Logs);
   rpc ListAll (Empty) returns (stream Logs);
   rpc Create (LogDto) returns (Log);
 }
@@ -49,6 +52,11 @@ message GetLogsByServiceTypeRequest {
 
 message GetLogsByActionTypeRequest {
   ActionType action = 1;
+}
+
+message GetLogsByEntityAndActionTypeRequest {
+  string entity = 1;
+  ActionType action = 2;
 }
 
 message Logs {

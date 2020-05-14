@@ -14,6 +14,7 @@ export class LogRepository extends Repository<Log> {
         const log = new Log();
         log.object = JSON.parse(data.object);
         log.objectId = data.objectId;
+        log.entity = data.entity;
         log.service = ServiceTypeConverter.fromInt(data.service);
         log.action = ActionTypeConverter.fromInt(data.action);
         await log.save();
@@ -32,6 +33,15 @@ export class LogRepository extends Repository<Log> {
     async findByActionType(action: keyof typeof ActionType): Promise<any> {
         return this.find({
             where: {
+                action: {$eq: action},
+            }
+        });
+    }
+
+    async findByEntityAndActionType(entity: string, action: keyof typeof ActionType): Promise<any> {
+        return this.find({
+            where: {
+                entity: {$eq: entity},
                 action: {$eq: action},
             }
         });

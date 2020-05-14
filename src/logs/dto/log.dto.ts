@@ -1,4 +1,4 @@
-import {IsInt, IsJSON, IsNotEmpty, IsString, IsUUID, Max, Min} from 'class-validator';
+import {IsInt, IsJSON, IsNotEmpty, IsString, IsUUID} from 'class-validator';
 
 export class LogDto {
     @IsNotEmpty()
@@ -18,4 +18,8 @@ export class LogDto {
     @IsNotEmpty()
     @IsInt()
     readonly action: number;
+
+    @IsNotEmpty()
+    @IsString()
+    readonly entity: string;
 }
