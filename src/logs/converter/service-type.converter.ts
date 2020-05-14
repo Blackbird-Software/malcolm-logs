@@ -10,6 +10,8 @@ export default class ServiceTypeConverter {
                 return ServiceType.BOOKS;
             case 2:
                 return ServiceType.MOVIES;
+            case 3:
+                return ServiceType.RATINGS;
             default:
                 throw new NotImplementedException('Unknown ServiceType given. ');
         }
