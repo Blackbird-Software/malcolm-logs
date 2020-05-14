@@ -86,6 +86,8 @@ export class LogsController implements OnModuleInit {
 
     @MessagePattern({type: MessagePatternType.APP_LOGS})
     async fetchMessage(@Payload() dto: LogDto, @Ctx() context: RmqContext): Promise<LogInterface> {
-        return this.logsService.create(dto);
+        // @TODO move to service
+        console.log('Received: ', dto);
+        return await this.logsService.create(dto);
     }
 }

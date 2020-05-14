@@ -1,4 +1,8 @@
-version: '3.3'
+version: '3.5'
+
+networks:
+  malcolm_network:
+    external: true
 
 services:
   logs_web:
@@ -14,6 +18,8 @@ services:
     depends_on:
       - logs_db
       - logs_rabbitmq
+    networks:
+      - malcolm_network
   logs_db:
     container_name: logs_db
     image: mongo:latest
@@ -27,6 +33,8 @@ services:
       MONGO_INITDB_DATABASE: ${DATABASE_NAME}
     ports:
       - 27018:27017
+    networks:
+      - malcolm_network
   logs_rabbitmq:
     container_name: logs_rabbitmq
     image: rabbitmq:3.6-management-alpine
@@ -36,6 +44,8 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - malcolm_network
 
 volumes:
   db-data:
